@@ -1,3 +1,4 @@
+// declarative Pipeline v1.2
 pipeline {
 	// agent any
 	// agent { docker { image 'maven:3.6.3'}}
@@ -16,7 +17,7 @@ pipeline {
 		}
 		stage('Integration Test') {
 			steps {
-				echo "Integration Test"
+				echo "Integration Test 11"
 			}
 		}
 	}
