@@ -37,6 +37,28 @@ pipeline {
 				sh 'mvn failsafe:integration-test failsafe:verify'
 			}
 		}
+		stage('Pakage') {
+			steps {
+				sh 'mvn package -DskipTests'
+			}
+		}
+		stage('Build DockerImage') {
+			steps {
+				script {
+					dockerImage = docker.build("ketul22/currency-exchange-devops:${env.BUILD_TAG}")
+				}
+
+			}
+		}
+		stage('Push DockerImage') {
+			steps {
+				docker.withRegistry('', 'dockerhub') {
+					dockerImage.push();
+					dockerImage.push('latest');
+				}
+
+			}
+		}
 	}
 	post {
 		always{
