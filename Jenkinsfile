@@ -1,4 +1,4 @@
-// declarative Pipeline v1.2
+// declarative Pipeline v1.7
 pipeline {
 	agent any
 	// agent { docker { image 'maven:3.6.3'}}
@@ -52,11 +52,12 @@ pipeline {
 		}
 		stage('Push DockerImage') {
 			steps {
-				docker.withRegistry('', 'dockerhub') {
-					dockerImage.push();
-					dockerImage.push('latest');
+				script {
+					docker.withRegistry('', 'dockerhub') {
+						dockerImage.push();
+						dockerImage.push('latest');
 				}
-
+				}
 			}
 		}
 	}
